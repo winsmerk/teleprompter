@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/camera/camera",
+    "pages/landscape/landscape",
+    "pages/feedback/feedback"
+  ],
+  "window": {
+    "navigationBarTitleText": "随行提词",
+    "navigationBarBackgroundColor": "#f5f7f6",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f7f6"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

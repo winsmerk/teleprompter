@@ -1,0 +1,41 @@
+<view class="page {{direction}} {{videoPath ? 'result' : ''}}">
+  <cover-view class="screen-nav {{videoPath ? 'light-nav' : ''}}" style="top:{{navTop}}px;left:{{navLeft}}px;height:{{navHeight}}px">
+    <cover-view class="nav-back {{recording || busy || processing || saving ? 'is-disabled' : ''}}" bindtap="goBack"><cover-image class="nav-icon" src="/assets/icons/tabler/chevron-left-{{videoPath ? 'dark' : 'white'}}.png"/><cover-view>返回</cover-view></cover-view>
+    <cover-view class="nav-title">{{videoPath ? '预览视频' : '提词拍摄'}}</cover-view>
+  </cover-view>
+  <view wx:if="{{!videoPath}}" class="stage" style="width:{{stageWidth}}px;height:{{stageHeight}}px;left:{{stageLeft}}px;top:{{stageTop}}px">
+    <camera wx:if="{{mounted}}" class="camera" device-position="{{position}}" flash="off" resolution="high" bindinitdone="onCameraReady" binderror="onCameraError" bindstop="onCameraStop" />
+      <view wx:if="{{mounted}}" class="prompt adjustable-prompt edge-prompt" style="left:{{promptLeft}}px;top:{{promptTop}}px;width:{{promptWidth}}px;height:{{promptHeight}}px">
+        <view class="prompt-text-area" style="height:{{promptRows * fontSize * 1.7}}px"><view class="lines" style="top:-{{shift}}px"><view wx:for="{{rows}}" wx:key="id" class="line" style="font-size:{{fontSize}}px;line-height:{{fontSize * 1.7}}px;height:{{fontSize * 1.7}}px">{{item.text}}</view></view></view>
+      </view>
+      <view wx:if="{{mounted}}" class="prompt-touch-surface web-touch-surface" style="left:{{promptSurfaceLeft}}px;top:{{promptSurfaceTop}}px;width:{{promptSurfaceWidth}}px;height:{{promptSurfaceHeight}}px" catch:touchstart="promptTouchStart" catch:touchmove="promptTouchMove" catch:touchend="promptTouchEnd" catch:touchcancel="promptTouchCancel"></view>
+
+    <view wx:if="{{!mounted}}" class="camera-unavailable"><view class="unavailable-icon"><image class="empty-camera-icon" src="/assets/icons/tabler/video-white.png"/></view><view>{{status}}</view></view>
+  </view>
+  <video wx:else class="preview" style="width:{{resultWidth}}px;height:{{resultHeight}}px;left:{{resultLeft}}px;top:{{resultTop}}px" src="{{videoPath}}" controls show-center-play-btn object-fit="contain" />
+      <cover-view wx:if="{{!videoPath && mounted}}" class="native-controls" style="left:{{dockLeft}}px;top:{{direction === 'landscape' ? dockTop : 'auto'}}{{direction === 'landscape' ? 'px' : ''}};bottom:0;width:{{dockWidth}}px;height:{{dockHeight}}px">
+        <cover-view class="dock-status">{{busy || !ready ? status : (recording ? '录制中 · ' + elapsed : formatLabel + ' · 准备就绪')}}</cover-view>
+        <cover-view wx:if="{{error}}" class="native-error">{{error}}</cover-view>
+        <cover-view wx:if="{{!ready && !busy && !recording}}" class="native-action retry-action" bindtap="retryCamera">重新启用相机</cover-view>
+        <cover-view class="native-actions">
+          <cover-view hover-class="control-pressed" hover-stay-time="100" class="native-action {{recording || busy || !ready ? 'is-disabled' : ''}}" bindtap="switchCamera"><cover-image class="action-icon" src="/assets/icons/tabler/camera-rotate-white.png"/><cover-view>镜头</cover-view></cover-view>
+          <cover-view hover-class="control-pressed" hover-stay-time="100" class="native-action play-action {{busy || !ready ? 'is-disabled' : ''}}" bindtap="toggleScroll"><cover-image class="action-icon" src="/assets/icons/tabler/{{scrolling ? 'player-pause' : 'player-play'}}-white.png"/><cover-view>{{scrolling ? '暂停提词' : '播放提词'}}</cover-view></cover-view>
+          <cover-view hover-class="control-pressed" hover-stay-time="100" class="native-action {{busy ? 'is-disabled' : ''}}" bindtap="resetScroll"><cover-image class="action-icon" src="/assets/icons/tabler/rotate-2-white.png"/><cover-view>从头读</cover-view></cover-view>
+        </cover-view>
+        <cover-view class="native-speed"><cover-view hover-class="control-pressed" hover-stay-time="100" class="native-step {{busy || !ready ? 'is-disabled' : ''}}" data-delta="-5" bindtap="stepSpeed"><cover-image class="action-icon" src="/assets/icons/tabler/minus-white.png"/></cover-view><cover-view class="speed-text">速度 {{speed}}</cover-view><cover-view hover-class="control-pressed" hover-stay-time="100" class="native-step {{busy || !ready ? 'is-disabled' : ''}}" data-delta="5" bindtap="stepSpeed"><cover-image class="action-icon" src="/assets/icons/tabler/plus-white.png"/></cover-view></cover-view>
+        <cover-view hover-class="control-pressed" hover-stay-time="100" class="native-record {{busy || (!ready && !recording) ? 'is-disabled' : ''}}" bindtap="toggleRecord"><cover-image class="action-icon record-icon" src="/assets/icons/tabler/{{recording ? 'player-stop' : 'circle'}}-white.png"/><cover-view>{{busy || !ready ? status : (recording ? '结束录像' : '开始录像')}}</cover-view></cover-view>
+        <cover-view class="native-note">{{recording ? '暂停提词不会停止录像' : '开始录像后，提词自动滚动'}}</cover-view>
+      </cover-view>
+  <view wx:if="{{videoPath}}" class="result-controls">
+    <view class="result-title">{{processing ? '正在生成视频' : (exportError ? '视频尚未生成' : (saved ? '已保存到相册' : '拍摄完成'))}}</view>
+    <view class="video-meta">{{direction === 'landscape' ? '横屏' : '竖屏'}} · {{formatLabel}}<text class="meta-divider">|</text>{{videoDuration || elapsed}}</view>
+    <view wx:if="{{processing}}" class="processing-hint">{{status}}<view>请保持页面在前台</view></view>
+    <view wx:if="{{exportError}}" class="error-panel"><view>原片已保留，可以重新生成</view><view class="error-detail">{{exportError}}</view></view>
+    <button wx:if="{{exportError}}" class="primary result-button" bindtap="processVideo">重试生成视频</button>
+    <button wx:else class="primary result-button {{saved ? 'saved-button' : ''}}" loading="{{saving || processing}}" disabled="{{saving || saved || processing}}" bindtap="saveVideo"><image class="button-icon" src="/assets/icons/tabler/{{saved ? 'check' : 'download'}}-white.png"/>{{processing ? '正在生成视频…' : (saving ? '正在保存…' : (saved ? '已保存到相册' : '保存到相册'))}}</button>
+    <button class="outline result-button" disabled="{{saving || processing}}" bindtap="retake"><image class="button-icon" src="/assets/icons/tabler/rotate-2-green.png"/>再拍一段</button>
+    <view class="result-note">提词文字不会出现在成片中</view>
+    <button class="help-link" bindtap="copyLogs">{{exportError ? '复制诊断日志' : '遇到问题？复制诊断日志'}}</button>
+  </view>
+  <view wx:elif="{{!mounted}}" class="fallback-controls"><view class="hint">{{error || '拍摄暂时中断，重新启用后即可继续'}}</view><button class="primary result-button" disabled="{{busy || recording}}" bindtap="retryCamera">重新启用相机</button><button class="help-link" bindtap="copyLogs">复制诊断日志</button></view>
+</view>

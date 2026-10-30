@@ -1,0 +1,23 @@
+<view class="feedback-page">
+ <view wx:if="{{submitted}}" class="success-card card">
+  <image class="success-icon" src="/assets/icons/tabler/check-green.png"/>
+  <view class="heading">感谢反馈，已收到</view>
+  <view class="subtitle">你的意见会帮助我们把提词器做得更好。</view>
+  <button class="primary submit-button" bindtap="goBack">返回首页</button>
+ </view>
+ <block wx:else>
+  <view class="heading">听听你的想法</view>
+  <view class="subtitle">遇到了什么问题，或希望增加什么功能？</view>
+  <view class="card feedback-card">
+   <textarea class="feedback-input" value="{{content}}" disabled="{{submitting}}" maxlength="500" bindinput="onInput" placeholder="请告诉我们你的使用体验或改进建议（5–500字）" placeholder-class="feedback-placeholder" adjust-position cursor-spacing="120"/>
+   <view class="counter">{{count}} / 500</view>
+  </view>
+  <view class="feedback-notice">点击提交后，仅将本页反馈文字和小程序版本发送至开发者使用的云服务，不上传提词文案、视频或诊断日志。无需填写姓名、联系方式，请勿填写密码等敏感信息。</view>
+  <view class="feedback-notice">为防止重复和恶意提交，云端使用微信身份的摘要标识进行去重及频率控制。反馈按90天保留期定期清理。提交失败的文字会在本机暂存，成功后清除；再次打开此页时会清理超过7天的暂存。</view>
+  <view wx:if="{{!serviceReady}}" class="status-note">反馈功能正在准备中，暂未开放提交。</view>
+  <view wx:if="{{error}}" class="feedback-error">{{error}}</view>
+  <button class="primary submit-button" loading="{{submitting}}" disabled="{{submitting || !serviceReady || !canSubmit}}" bindtap="submit">{{submitting ? '正在提交…' : (error ? '重试提交' : '提交反馈')}}</button>
+  <view wx:if="{{submitting}}" class="status-note">正在确认结果，请稍候，无需重复点击。</view>
+  <button class="privacy-link" bindtap="openPrivacy">用户隐私保护指引</button>
+ </block>
+</view>

@@ -1,0 +1,22 @@
+<view class="home">
+  <view class="hero"><view class="title">随行提词</view><view class="subtitle">写好稿子，自然开拍</view></view>
+  <view class="card script-card">
+    <view class="section-heading"><text>我的文案</text><text class="saved-hint">{{draftSaved ? '✓ 已自动保存' : '未保存，请勿退出'}}</text></view>
+    <textarea class="script-input" value="{{script}}" bindinput="onInput" maxlength="5000" placeholder="写下你想说的话……" placeholder-class="input-placeholder" adjust-position cursor-spacing="120" />
+    <view class="counter">{{script.length}} / 5000</view>
+  </view>
+  <view class="card settings-card">
+    <view class="section-heading">提词设置</view>
+    <view class="setting-row"><text class="setting-label">滚动速度</text><button class="step" data-kind="speed" data-delta="-5" bindtap="stepSetting" aria-label="减慢滚动速度"><image class="button-icon" src="/assets/icons/tabler/minus-green.png"/></button><slider class="setting-slider" min="5" max="80" value="{{speed}}" activeColor="#168b77" backgroundColor="#edf1ef" block-size="22" bindchange="onSpeed"/><text class="setting-value">{{speed}}</text><button class="step" data-kind="speed" data-delta="5" bindtap="stepSetting" aria-label="加快滚动速度"><image class="button-icon" src="/assets/icons/tabler/plus-green.png"/></button></view>
+    <view class="setting-row"><text class="setting-label">文字大小</text><button class="step" data-kind="fontSize" data-delta="-2" bindtap="stepSetting" aria-label="缩小文字"><image class="button-icon" src="/assets/icons/tabler/minus-green.png"/></button><slider class="setting-slider" min="22" max="38" value="{{fontSize}}" activeColor="#168b77" backgroundColor="#edf1ef" block-size="22" bindchange="onFont"/><text class="setting-value">{{fontSize}}</text><button class="step" data-kind="fontSize" data-delta="2" bindtap="stepSetting" aria-label="放大文字"><image class="button-icon" src="/assets/icons/tabler/plus-green.png"/></button></view>
+  </view>
+  <view class="card format-card">
+    <view class="section-heading">拍摄格式</view>
+    <view class="format-row"><text class="setting-label">拍摄方向</text><view class="segments"><button class="segment {{direction === 'portrait' ? 'selected' : ''}}" data-value="portrait" bindtap="onDirection"><image class="button-icon" src="/assets/icons/tabler/device-mobile-{{direction === 'portrait' ? 'white' : 'green'}}.png"/>竖屏</button><button class="segment {{direction === 'landscape' ? 'selected' : ''}}" data-value="landscape" bindtap="onDirection"><image class="button-icon" src="/assets/icons/tabler/rectangle-{{direction === 'landscape' ? 'white' : 'green'}}.png"/>横屏</button></view></view>
+    <view class="format-row"><text class="setting-label">画面比例</text><view class="segments"><button class="segment {{ratio === '1:1' ? 'selected' : ''}}" data-value="1:1" bindtap="onRatio">1:1</button><button class="segment {{ratio === '4:3' ? 'selected' : ''}}" data-value="4:3" bindtap="onRatio">{{direction === 'portrait' ? '3:4' : '4:3'}}</button><button class="segment {{ratio === '16:9' ? 'selected' : ''}}" data-value="16:9" bindtap="onRatio">{{direction === 'portrait' ? '9:16' : '16:9'}}</button></view></view>
+    <view class="format-hint">{{direction === 'portrait' ? '竖持手机拍摄' : '进入拍摄后，请横持手机'}} · 保持比例，不拉伸画面</view>
+  </view>
+  <button class="feedback-entry" bindtap="openFeedback">意见反馈</button>
+  <button class="help-link" bindtap="showHelp">使用帮助与诊断 · v1.1.0</button>
+  <view class="home-footer"><button class="primary start-button" loading="{{entering}}" disabled="{{entering}}" bindtap="enterCamera"><image class="button-icon" src="/assets/icons/tabler/video-white.png"/> {{entryLabel}}</button><view class="privacy-note {{entering ? 'entry-wait' : ''}}">{{entering ? entryHint : '视频仅保存在本机 · 单次最长 5 分钟'}}</view></view>
+</view>

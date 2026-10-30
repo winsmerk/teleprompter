@@ -1,0 +1,210 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+ A023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A024; };
+ A021 /* CameraRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A022; };
+ A019 /* DiagnosticLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A020; };
+		A014 /* TeleprompterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A012 /* TeleprompterApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+ A024 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+ A022 /* CameraRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRecorder.swift; sourceTree = "<group>"; };
+ A020 /* DiagnosticLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticLog.swift; sourceTree = "<group>"; };
+		A006 /* Teleprompter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Teleprompter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A012 /* TeleprompterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterApp.swift; sourceTree = "<group>"; };
+		A013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A002 = {
+			isa = PBXGroup;
+			children = (
+				A005 /* Teleprompter */,
+				A003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A006 /* Teleprompter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A005 /* Teleprompter */ = {
+			isa = PBXGroup;
+			children = (
+				A012 /* TeleprompterApp.swift */,
+ A020 /* DiagnosticLog.swift */,
+ A022 /* CameraRecorder.swift */,
+ A024 /* Assets.xcassets */,
+				A013 /* Info.plist */,
+			);
+			path = Teleprompter;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A004 /* Teleprompter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A011 /* Build configuration list for PBXNativeTarget "Teleprompter" */;
+			buildPhases = (
+				A007 /* Sources */,
+				A008 /* Frameworks */,
+				A009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Teleprompter;
+			productName = Teleprompter;
+			productReference = A006 /* Teleprompter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 2700;
+			};
+			buildConfigurationList = A010 /* Build configuration list for PBXProject "Teleprompter" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A002;
+			productRefGroup = A003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A004 /* Teleprompter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+ A023 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A014 /* TeleprompterApp.swift in Sources */,
+ A019 /* DiagnosticLog.swift in Sources */,
+ A021 /* CameraRecorder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A015 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+ ALWAYS_SEARCH_USER_PATHS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A016 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+ ALWAYS_SEARCH_USER_PATHS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 325867J46L;
+				INFOPLIST_FILE = Teleprompter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lww.teleprompter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+ ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+ DEBUG_INFORMATION_FORMAT = dwarf;
+ GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+ SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+ ENABLE_TESTABILITY = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A018 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 325867J46L;
+				INFOPLIST_FILE = Teleprompter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lww.teleprompter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+ ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A010 /* Build configuration list for PBXProject "Teleprompter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A015 /* Debug */,
+				A016 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A011 /* Build configuration list for PBXNativeTarget "Teleprompter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A017 /* Debug */,
+				A018 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A001 /* Project object */;
+}
